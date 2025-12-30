@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Christine — Cinematography & Photoshoots</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+:root{
+  --bg:#0f1724;
+  --card:#0b1320;
+  --accent:#ff6b6b;
+  --muted:#9aa4b2;
+  --glass: rgba(255,255,255,0.06);
+  --max:1100px;
+}
+
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  font-family:Inter,system-ui;
+  background:linear-gradient(180deg,var(--bg),#071027);
+  color:#e6eef8;
+}
+
+/* NAV */
+nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter: blur(10px);
+  background:rgba(8,15,30,.75);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.nav-inner{
+  max-width:var(--max);
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo{
+  font-weight:800;
+  background:linear-gradient(135deg,var(--accent),#ffa94d);
+  color:#081021;
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+}
+.nav-links{display:flex;gap:20px}
+.nav-links a{
+  color:#e6eef8;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+}
+.menu-btn{display:none;background:none;border:0;font-size:22px;color:#fff}
+@media(max-width:768px){
+  .nav-links{
+    position:absolute;
+    top:64px;
+    right:16px;
+    background:var(--card);
+    flex-direction:column;
+    padding:16px;
+    border-radius:14px;
+    display:none;
+  }
+  .nav-links.open{display:flex}
+  .menu-btn{display:block}
+}
+
+/* LAYOUT */
+.container{max-width:var(--max);margin:auto;padding:28px 20px}
+.card{
+  background:var(--card);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 12px 30px rgba(0,0,0,.5);
+}
+h1,h2,h3{margin:0 0 10px}
+.muted{color:var(--muted)}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+
+/* BUTTONS */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 16px;
+  border-radius:14px;
+  font-weight:700;
+  border:0;
+  cursor:pointer;
+}
+.btn-primary{
+  background:linear-gradient(90deg,var(--accent),#ff7aa2);
+  color:#081021;
+}
+.btn-ghost{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.08);
+  color:#e6eef8;
+}
+
+/* STATS */
+.stats{display:flex;gap:12px;margin-top:16px}
+.stat{
+  background:var(--glass);
+  flex:1;
+  text-align:center;
+  padding:12px;
+  border-radius:12px;
+  font-size:16px;
+}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:768px){.gallery{grid-template-columns:repeat(2,1fr)}}
+.gallery img, .gallery video{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.25s;
+}
+.gallery img:hover, .gallery video:hover{transform:scale(1.04)}
+
+/* CONTACT */
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  margin-top:8px;
+  padding:12px;
+  border-radius:10px;
+  background:#08131f;
+  border:1px solid rgba(255,255,255,.05);
+  color:#fff;
+}
+
+/* SOCIALS */
+.socials{
+  display:flex;
+  gap:18px;
+  justify-content:center;
+  margin-top:16px;
+}
+.socials a{
+  color:var(--accent);
+  font-size:22px;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+}
+.modal.open{display:flex}
+.modal img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:12px;
+}
+
+/* FOOTER */
+footer{
+  margin-top:30px;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+}
+footer span {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+footer span a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+footer span a:hover { color: #ff7aa2; }
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">C</div>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#gallery">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <!-- Text Card -->
+  <div class="card">
+    <h2>Make your moments feel like movies</h2>
+    <p class="muted">
+      Hi, I’m Christine. I capture cinematic stories for brands, couples, and creatives. 
+      I believe every frame should feel like a memory — merging raw emotion with a polished, filmic aesthetic.
+      With years of experience in photography and cinematography, I help clients tell their stories visually, creating content that connects and inspires.
+    </p>
+
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+      <a href="tel:+2349133955425" class="btn btn-primary">Call / WhatsApp</a>
+      <a href="#gallery" class="btn btn-ghost">View Portfolio</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b data-target="120">0</b><div class="muted">Shoots</div></div>
+      <div class="stat"><b data-target="60">60</b><div class="muted">Films</div></div>
+      <div class="stat"><b data-target="4.9">4.9</b><div class="muted">Rating</div></div>
+    </div>
+  </div>
+
+  <!-- Owner Photo & Bio Card -->
+  <div class="card" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+    <img src="photo 8.jpeg" 
+         alt="Christine Portrait" 
+         style="width:100%;max-width:280px;border-radius:16px;object-fit:cover;">
+    <h3 style="margin:0;text-align:center;">Christine — Cinematographer & Photographer</h3>
+    <p class="muted" style="text-align:center;font-size:14px;margin:4px 0 0;">
+      Passionate about storytelling through visuals. Christine specializes in cinematic edits, creative portraits, and memorable visual experiences that connect with your audience.
+    </p>
+  </div>
+</section>
+
+<!-- FEATURED PROJECT -->
+<section class="card fade-up" style="margin-top:20px">
+  <h3>Featured Project</h3>
+  <img src="ph.jpeg" alt="Featured Project" style="width:100%;border-radius:12px;margin:10px 0;">
+  <p class="muted">
+    Cinematic fashion short film for a local designer brand. Full shoot including directing, filming, and color grading to achieve a high-fashion cinematic look.
+  </p>
+  <ul class="muted" style="margin:6px 0; padding-left:18px;">
+    <li>Shooting</li>
+    <li>Editing</li>
+    <li>Color Grading</li>
+    <li>Creative Direction</li>
+  </ul>
+  <strong>From ₦50,000</strong>
+  <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+    <a href="#gallery" class="btn btn-ghost">View Project</a>
+    <a href="tel:+2349133955425" class="btn btn-primary">Book Now</a>
+  </div>
+</section>
+
+<!-- SERVICES & GALLERY -->
+<section class="grid">
+  <div class="card" id="services">
+    <h3>What I Do</h3>
+    <ul class="muted">
+      <li>Photoshoots</li>
+      <li>Cinematography & short films</li>
+      <li>Editing & color grading</li>
+      <li>Creative direction</li>
+    </ul>
+  </div>
+
+  <div class="card" id="gallery">
+    <h3>Portfolio</h3>
+    <div class="gallery" id="galleryGrid">
+      <img src="photo 1.jpeg">
+      <img src="photo 3.jpeg">
+      <img src="photo 4.jpeg">
+      <img src="photo 5.jpeg">
+      <img src="photo 7.jpeg">
+      <img src="photo 8.jpeg">
+    </div>
+
+    <h4 style="margin-top:18px">Videos / Cinematic Clips</h4>
+    <div class="gallery" id="videoGrid">
+      <video controls poster="https://via.placeholder.com/400x200.png?text=Video+1">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      </video>
+      <video controls poster="https://via.placeholder.com/400x200.png?text=Video+2">
+        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+      </video>
+      <video controls poster="https://via.placeholder.com/400x200.png?text=Video+3">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="card" id="contact" style="margin-top:22px">
+  <h3>Book a Shoot</h3>
+  <p class="muted">Fill the form — you’ll be redirected to WhatsApp</p>
+
+  <form class="contact-form" id="contactForm">
+    <input id="name" placeholder="Your name" required>
+    <input id="email" placeholder="Email" required>
+    <textarea id="message" rows="4" placeholder="Tell me about your project" required></textarea>
+    <button class="btn btn-primary" style="margin-top:10px">Send Enquiry</button>
+  </form>
+
+  <div class="socials">
+    <a href="https://wa.me/2349133955425" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://www.instagram.com/chr.istine813/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://vm.tiktok.com/ZSHKoVXBDPr9P-WW7tm/" target="_blank"><i class="fab fa-tiktok"></i></a>
+  </div>
+</section>
+
+<footer>
+  © Christine — Cinematography & Photoshoots
+  <span>Design by <a href="#">Great man Mordecai</a></span>
+</footer>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal"><img id="modalImg"></div>
+
+<script>
+/* NAV */
+const menuBtn=document.getElementById('menuBtn');
+const navLinks=document.getElementById('navLinks');
+menuBtn.onclick=()=>navLinks.classList.toggle('open');
+
+/* GALLERY LIGHTBOX */
+const modal=document.getElementById('modal');
+const modalImg=document.getElementById('modalImg');
+document.querySelectorAll('.gallery img').forEach(img=>{
+  img.onclick=()=>{ modalImg.src=img.src; modal.classList.add('open'); }
+});
+modal.onclick=()=>modal.classList.remove('open');
+
+/* CONTACT FORM TO WHATSAPP */
+const contactForm=document.getElementById('contactForm');
+contactForm.onsubmit=e=>{
+  e.preventDefault();
+  const msg=`Hi, my name is ${name.value}%0AEmail: ${email.value}%0A%0A${message.value}`;
+  window.open(`https://wa.me/2349133955425?text=${msg}`,'_blank');
+  contactForm.reset();
+};
+
+/* STATS COUNTER */
+const counters = document.querySelectorAll('.stat b');
+counters.forEach(counter=>{
+  const updateCount = ()=>{
+    const target=parseFloat(counter.getAttribute('data-target'));
+    let count=parseFloat(counter.innerText);
+    const increment=target/200;
+    if(count<target){
+      counter.innerText=(count+increment).toFixed(target % 1 ? 1 : 0);
+      requestAnimationFrame(updateCount);
+    } else {
+      counter.innerText=target + (target % 1 ? '' : '+');
+    }
+  };
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        updateCount();
+        observer.unobserve(counter);
+      }
+    });
+  },{threshold:0.6});
+  observer.observe(counter);
+});
+</script>
+
+</body>
+</html>
