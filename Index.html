@@ -6,6 +6,15 @@
 <title>Christine — Mobile Cinematography & Photography</title>
 <meta name="description" content="Professional mobile cinematographer capturing cinematic stories on smartphone. Creative photoshoots, short films, and visual storytelling.">
 
+<!-- Preconnect to external resources -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+<!-- Preload critical images -->
+<link rel="preload" as="image" href="photo 8.jpeg">
+<link rel="preload" as="image" href="ph.jpeg">
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
@@ -27,29 +36,11 @@ body{
   background:linear-gradient(180deg,var(--bg),#071027);
   color:#e6eef8;
   line-height:1.6;
+  /* Force immediate paint */
+  content-visibility:auto;
 }
 
-/* LOADING SCREEN */
-.loader{
-  position:fixed;
-  inset:0;
-  background:var(--bg);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-  transition:opacity .5s, visibility .5s;
-}
-.loader.hide{opacity:0;visibility:hidden}
-.loader-spinner{
-  width:50px;
-  height:50px;
-  border:4px solid rgba(255,107,107,.2);
-  border-top-color:var(--accent);
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* Remove unused loader styles */
 
 /* NAV */
 nav{
@@ -142,12 +133,22 @@ nav.scrolled{
 
 /* LAYOUT */
 .container{max-width:var(--max);margin:auto;padding:28px 20px}
+@media(max-width:600px){
+  .container{padding:20px 16px}
+}
+/* CARD HOVER - Disable on first paint */
 .card{
   background:var(--card);
   border-radius:18px;
   padding:22px;
   box-shadow:0 12px 30px rgba(0,0,0,.5);
-  transition:transform .3s, box-shadow .3s;
+  will-change:auto;
+}
+@media(max-width:600px){
+  .card{
+    padding:18px;
+    border-radius:14px;
+  }
 }
 .card:hover{
   transform:translateY(-2px);
@@ -160,8 +161,8 @@ h2{font-size:1.8rem}
 
 /* FADE-IN ANIMATIONS */
 .fade-up{
-  opacity:0;
-  transform:translateY(30px);
+  opacity:1;
+  transform:translateY(0);
   transition:opacity .6s, transform .6s;
 }
 .fade-up.visible{
@@ -171,7 +172,14 @@ h2{font-size:1.8rem}
 
 /* HERO */
 .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
-@media(max-width:900px){.hero{grid-template-columns:1fr}}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  h1{font-size:2rem}
+  h2{font-size:1.5rem}
+  h3{font-size:1.2rem}
+}
 
 /* BUTTONS */
 .btn{
@@ -187,6 +195,15 @@ h2{font-size:1.8rem}
   transition:all .3s;
   position:relative;
   overflow:hidden;
+  font-size:14px;
+}
+@media(max-width:600px){
+  .btn{
+    padding:10px 16px;
+    font-size:13px;
+    width:100%;
+    justify-content:center;
+  }
 }
 .btn::before{
   content:'';
@@ -242,6 +259,16 @@ h2{font-size:1.8rem}
   border:1px solid rgba(255,255,255,.05);
   transition:all .3s;
 }
+@media(max-width:600px){
+  .stats{gap:8px}
+  .stat{
+    min-width:90px;
+    padding:12px 8px;
+  }
+  .stat b{
+    font-size:24px;
+  }
+}
 .stat:hover{
   background:rgba(255,107,107,.1);
   border-color:rgba(255,107,107,.3);
@@ -268,9 +295,20 @@ h2{font-size:1.8rem}
   border-left:3px solid var(--accent);
   transition:all .3s;
 }
+@media(max-width:600px){
+  .service-list li{
+    padding:10px;
+    font-size:14px;
+  }
+}
 .service-list li:hover{
   background:rgba(255,107,107,.1);
   transform:translateX(5px);
+}
+@media(max-width:600px){
+  .service-list li:hover{
+    transform:translateX(3px);
+  }
 }
 .service-list li i{
   color:var(--accent);
@@ -295,6 +333,12 @@ h2{font-size:1.8rem}
   font-size:14px;
   font-weight:600;
 }
+@media(max-width:600px){
+  .filter-btn{
+    padding:6px 12px;
+    font-size:12px;
+  }
+}
 .filter-btn:hover,
 .filter-btn.active{
   background:var(--accent);
@@ -308,6 +352,12 @@ h2{font-size:1.8rem}
 }
 @media(max-width:768px){
   .gallery{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
+  .gallery{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
 }
 .gallery-item{
   position:relative;
@@ -349,8 +399,8 @@ h2{font-size:1.8rem}
 
 /* LAZY LOAD */
 .lazy{
-  opacity:0;
-  transition:opacity .5s;
+  opacity:1;
+  transition:opacity .3s;
 }
 .lazy.loaded{
   opacity:1;
@@ -363,11 +413,20 @@ h2{font-size:1.8rem}
   gap:16px;
   margin-top:20px;
 }
+@media(max-width:600px){
+  .testimonials{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+}
 .testimonial{
   background:var(--glass);
   padding:18px;
   border-radius:12px;
   border-left:3px solid var(--accent);
+}
+@media(max-width:600px){
+  .testimonial{padding:14px}
 }
 .testimonial-header{
   display:flex;
@@ -460,11 +519,20 @@ h2{font-size:1.8rem}
   padding:20px;
   animation:fadeIn .3s;
 }
+@media(max-width:600px){
+  .modal{padding:10px}
+}
 .modal.open{display:flex}
 .modal-content{
   max-width:90%;
   max-height:90%;
   position:relative;
+}
+@media(max-width:600px){
+  .modal-content{
+    max-width:95%;
+    max-height:85%;
+  }
 }
 .modal-content img,
 .modal-content video{
@@ -472,6 +540,13 @@ h2{font-size:1.8rem}
   max-height:90vh;
   border-radius:12px;
   box-shadow:0 20px 60px rgba(0,0,0,.8);
+}
+@media(max-width:600px){
+  .modal-content img,
+  .modal-content video{
+    max-height:80vh;
+    border-radius:8px;
+  }
 }
 .modal-close{
   position:absolute;
@@ -486,6 +561,15 @@ h2{font-size:1.8rem}
   font-size:20px;
   cursor:pointer;
   transition:transform .3s;
+}
+@media(max-width:600px){
+  .modal-close{
+    top:10px;
+    right:10px;
+    width:32px;
+    height:32px;
+    font-size:18px;
+  }
 }
 .modal-close:hover{transform:rotate(90deg) scale(1.1)}
 @keyframes fadeIn{
@@ -512,6 +596,15 @@ h2{font-size:1.8rem}
   z-index:99;
   box-shadow:0 4px 15px rgba(255,107,107,.4);
 }
+@media(max-width:600px){
+  .scroll-top{
+    bottom:20px;
+    right:20px;
+    width:45px;
+    height:45px;
+    font-size:18px;
+  }
+}
 .scroll-top.visible{
   opacity:1;
   visibility:visible;
@@ -530,6 +623,19 @@ footer{
   color:var(--muted);
   background:rgba(0,0,0,.2);
   border-top:1px solid rgba(255,255,255,.05);
+}
+@media(max-width:600px){
+  footer{
+    margin-top:30px;
+    padding:20px 16px;
+    font-size:12px;
+  }
+  footer p{font-size:13px !important}
+  footer div a{
+    display:block;
+    margin:8px 0 !important;
+  }
+  footer div span{display:none}
 }
 footer span{
   display:block;
@@ -573,10 +679,10 @@ footer a:hover{color:var(--accent-light)}
 
 <body>
 
-<!-- LOADING SCREEN -->
-<div class="loader" id="loader">
-  <div class="loader-spinner"></div>
-</div>
+<!-- LOADING SCREEN - Removed for better LCP -->
+<style>
+.initial-hide{opacity:0}
+</style>
 
 <!-- NAV -->
 <nav id="navbar" role="navigation" aria-label="Main navigation">
@@ -642,9 +748,11 @@ footer a:hover{color:var(--accent-light)}
   <div class="card fade-up" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
     <img src="photo 8.jpeg" 
          alt="Christine - Mobile Cinematographer" 
-         class="lazy"
          style="width:100%;max-width:280px;border-radius:16px;object-fit:cover;"
-         loading="lazy">
+         width="280"
+         height="280"
+         fetchpriority="high"
+         decoding="async">
     <h3 style="margin:0;text-align:center;">Christine</h3>
     <p style="text-align:center;color:var(--accent);font-weight:600;font-size:15px;margin:0;">
       Mobile Cinematographer & Photographer
@@ -664,9 +772,11 @@ footer a:hover{color:var(--accent-light)}
   <h3>Cinematic Fashion Film — Shot on Mobile</h3>
   <img src="ph.jpeg" 
        alt="Featured mobile cinematography project" 
-       class="lazy"
        style="width:100%;border-radius:12px;margin:10px 0;"
-       loading="lazy">
+       width="1100"
+       height="600"
+       fetchpriority="high"
+       decoding="async">
   <p class="muted">
     A cinematic fashion short film for a local designer brand, entirely shot on smartphone. This project showcases the incredible potential of mobile cinematography with professional lighting, creative angles, and expert color grading to achieve a high-fashion cinematic look.
   </p>
@@ -715,22 +825,22 @@ footer a:hover{color:var(--accent-light)}
 
     <div class="gallery" id="galleryGrid">
       <div class="gallery-item lazy" data-category="photo">
-        <img src="photo 1.jpeg" alt="Mobile photography by Christine" loading="lazy">
+        <img src="photo 1.jpeg" alt="Mobile photography by Christine" loading="lazy" width="400" height="400" decoding="async">
       </div>
       <div class="gallery-item lazy" data-category="photo">
-        <img src="photo 3.jpeg" alt="Mobile photography by Christine" loading="lazy">
+        <img src="photo 3.jpeg" alt="Mobile photography by Christine" loading="lazy" width="400" height="400" decoding="async">
       </div>
       <div class="gallery-item lazy" data-category="photo">
-        <img src="photo 4.jpeg" alt="Mobile photography by Christine" loading="lazy">
+        <img src="photo 4.jpeg" alt="Mobile photography by Christine" loading="lazy" width="400" height="400" decoding="async">
       </div>
       <div class="gallery-item lazy" data-category="photo">
-        <img src="photo 5.jpeg" alt="Mobile photography by Christine" loading="lazy">
+        <img src="photo 5.jpeg" alt="Mobile photography by Christine" loading="lazy" width="400" height="400" decoding="async">
       </div>
       <div class="gallery-item lazy" data-category="photo">
-        <img src="photo 7.jpeg" alt="Mobile photography by Christine" loading="lazy">
+        <img src="photo 7.jpeg" alt="Mobile photography by Christine" loading="lazy" width="400" height="400" decoding="async">
       </div>
       <div class="gallery-item lazy" data-category="photo">
-        <img src="photo 8.jpeg" alt="Mobile photography by Christine" loading="lazy">
+        <img src="photo 8.jpeg" alt="Mobile photography by Christine" loading="lazy" width="400" height="400" decoding="async">
       </div>
       <div class="gallery-item lazy" data-category="video">
         <video poster="https://via.placeholder.com/400x400.png?text=Mobile+Cinematic+Clip+1" preload="none">
@@ -894,12 +1004,10 @@ footer a:hover{color:var(--accent-light)}
 
 <script>
 // ============================================
-// LOADING SCREEN
+// CRITICAL: Disable fade animations on initial load
 // ============================================
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hide');
-  }, 800);
+document.querySelectorAll('.fade-up').forEach(el => {
+  el.classList.add('visible');
 });
 
 // ============================================
@@ -987,17 +1095,7 @@ lazyElements.forEach(el => lazyObserver.observe(el));
 // ============================================
 // FADE-IN ANIMATIONS
 // ============================================
-const fadeElements = document.querySelectorAll('.fade-up');
-const fadeObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      fadeObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-fadeElements.forEach(el => fadeObserver.observe(el));
+// Animations already visible on load, skip observer for initial viewport
 
 // ============================================
 // GALLERY LIGHTBOX
